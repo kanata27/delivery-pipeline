@@ -1,0 +1,41 @@
+name: CI pipeline
+
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  app-build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore Delivery.sln
+      
+      - name: Build app
+        run: dotnet build Delivery.sln -c Release --no-restore -o /publish
+
+      - name: Upload /publish as artifact
+        uses: actions/upload-artifact@v7
+        with: 
+          name: App_publish_artifact
+          path: ./publish
+          retention-days: 30
+        
