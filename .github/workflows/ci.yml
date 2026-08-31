@@ -79,7 +79,7 @@ jobs:
         run: pwd
 
       - name: Docker build image
-        run: docker build -t "$DOCKER_IMAGE_NAME" ./Dockerfile
+        run: docker build -t "$DOCKER_IMAGE_NAME" -f ./Dockerfile/Dockerfile .
 
       - name: Check docker images
         run: docker images
