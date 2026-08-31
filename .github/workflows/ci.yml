@@ -71,3 +71,8 @@ jobs:
           name: Dockerfile_artifact
           path: ./Dockerfile
 
+      - name: Docker build image
+        run: docker build -t "$DOCKER_IMAGE_NAME" .
+
+      - name: Check docker images
+        run: docker images
