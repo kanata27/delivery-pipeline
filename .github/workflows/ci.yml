@@ -41,4 +41,25 @@ jobs:
           name: App_publish_artifact
           path: ./publish
           retention-days: 30
-        
+
+      - name: Upload Dockerfile as artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Dockerfile_artifact
+          path: ./Dockerfile
+          retention-days: 30
+
+  docker:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: read
+    env:
+      DOCKER_IMAGE_NAME: ${{ github.sha }}
+    
+    steps: 
+
+      - name: Download /publish artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: App_publish_artifact
+          path: ./publish
