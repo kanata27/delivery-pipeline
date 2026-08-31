@@ -38,7 +38,7 @@ jobs:
       - name: Upload /publish as artifact
         uses: actions/upload-artifact@v7
         with: 
-          name: App_publish_artifact
+          name: publish
           path: ./publish
           retention-days: 30
 
@@ -63,7 +63,7 @@ jobs:
       - name: Download /publish artifact
         uses: actions/download-artifact@v8
         with:
-          name: App_publish_artifact
+          name: publish
           path: ./publish
 
       - name: Download Dockerfile artifact
