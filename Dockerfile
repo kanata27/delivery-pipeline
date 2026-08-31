@@ -6,7 +6,7 @@ COPY ./publish .
 
 EXPOSE 8080
 
-RUN ["dotnet", "Delivery.Api.dll"]
+ENTRYPOINT ["dotnet", "Delivery.Api.dll"]
 
 
 
