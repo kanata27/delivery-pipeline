@@ -72,6 +72,9 @@ jobs:
           name: Dockerfile
           path: ./Dockerfile
 
+      - name: Check files and directories
+        run: ls -la
+
       - name: Docker build image
         run: docker build -t "$DOCKER_IMAGE_NAME" ./Dockerfile
 
