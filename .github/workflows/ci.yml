@@ -82,11 +82,11 @@ jobs:
         run: |
           for (( i=1; i<=5; i++ ))
           do
-	          if ! curl -f http://localhost:8080/; then
-		          sleep 3s
-	          else
-		          exit 0
-	          fi
+            if ! curl -f http://localhost:8080/; then
+              sleep 3s
+            else 
+              exit 0
+            fi
           done
           exit 1
 
