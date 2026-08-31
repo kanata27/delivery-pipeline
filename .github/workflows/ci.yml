@@ -73,6 +73,7 @@ jobs:
           path: ./Dockerfile
 
       - name: Check files and directories
+        run: pwd
         run: ls -la
 
       - name: Docker build image
