@@ -55,7 +55,7 @@ jobs:
     permissions:
       packages: read
     env:
-      DOCKER_IMAGE_NAME: cs_app_${{ github.sha }}
+      DOCKER_IMAGE_NAME: cs_app_image:${{ github.sha }}
     needs:
       - app-build
     steps: 
@@ -75,7 +75,21 @@ jobs:
       - name: Docker build image
         run: docker build -t "$DOCKER_IMAGE_NAME" -f ./Dockerfile/Dockerfile .
 
-      - name: Check docker images
-        run: docker images
+      - name: Run created image
+        run: docker run -d --name csTestContainer -p 8080:8080 "$DOCKER_IMAGE_NAME"
 
-      
+      - name: Healthcheck container
+        run: |
+          for (( i=1; i<=5; i++ ))
+          do
+	          if ! curl -f http://localhost:8080/; then
+		          sleep 3s
+	          else
+		          exit 0
+	          fi
+          done
+          exit 1
+
+      - name: Stop container
+        if: always()
+        run: docker rm -f csTestContainer
