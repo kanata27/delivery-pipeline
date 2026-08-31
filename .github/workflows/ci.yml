@@ -55,7 +55,8 @@ jobs:
       packages: read
     env:
       DOCKER_IMAGE_NAME: ${{ github.sha }}
-    
+    needs:
+      - app-build
     steps: 
 
       - name: Download /publish artifact
@@ -63,3 +64,10 @@ jobs:
         with:
           name: App_publish_artifact
           path: ./publish
+
+      - name: Download Dockerfile artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: Dockerfile_artifact
+          path: ./Dockerfile
+
