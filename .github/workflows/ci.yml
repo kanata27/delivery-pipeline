@@ -107,6 +107,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}   
 
       - name: Push an image to GHCR
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           docker push "$DOCKER_IMAGE_NAME"
           docker push ghcr.io/kanata27/delivery-pipeline:latest
