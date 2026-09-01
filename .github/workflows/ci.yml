@@ -93,6 +93,8 @@ jobs:
               exit 0
             fi
           done
+
+          docker logs csTestContainer
           exit 1
 
       - name: Stop container
@@ -145,6 +147,8 @@ jobs:
               exit 0
             fi
           done
+
+          docker logs csTestContainer
           exit 1
 
       - name: Stop container
